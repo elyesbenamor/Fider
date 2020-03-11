@@ -42,4 +42,3 @@ spec:
             value: 853a873ea6902c26369e1187c142fbacb03a46d5
         ports:
         - containerPort: 3000
-          nodePort: 9999
