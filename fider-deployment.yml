@@ -1,0 +1,40 @@
+apiVersion: apps/v1 # 
+kind: Deployment
+metadata:
+  name: fider
+  labels:
+    app: fider
+spec:
+  selector:
+    matchLabels:
+      app: fider
+      tier: fider
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: fider
+        tier: fider
+    spec:
+      containers:
+      - name: fider
+        image: getfider/fider:stable
+        resources:
+          requests:
+            cpu: 100m
+            memory: 10Gi
+        env: 
+          DATABASE_URL: postgres://fider:fider@postgres:5432/fider?sslmode=disable
+          JWT_SECRET: tXQhvSMWMS11qZ9euEhE6lf2ferf0FR6RYGd8iMXiTxxXtJ1XDVdTXPaLtV12ZGp
+          EMAIL_NOREPLY: noreply@yourdomain.com
+          EMAIL_SMTP_HOST: smtp.gmail.com
+          EMAIL_SMTP_PORT: 587
+          EMAIL_SMTP_USERNAME: benamorelyes0@gmail.com
+          EMAIL_SMTP_PASSWORD: Azertyuiop123456789.
+          #EMAIL_SMTP_SSL: enable
+          # GitHub
+          OAUTH_GITHUB_CLIENTID: 8bf25d5a40548ac247a8
+          OAUTH_GITHUB_SECRET: 853a873ea6902c26369e1187c142fbacb03a46d5
+        ports:
+        - containerPort: 3000
+          targetPort: 9999
