@@ -26,9 +26,9 @@ services:
       dockerfile: Dockerfile-postgres
     container_name: postgres
     environment:
-      POSTGRES_USER: fider
-      POSTGRES_PASSWORD: fider
-      POSTGRES_DB: fider
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
     volumes:
      - pgdb:/var/lib/postgres/data
      - pgdb:/etc/postgresql
