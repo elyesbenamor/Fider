@@ -24,17 +24,23 @@ spec:
             cpu: 100m
             memory: 10Gi
         env: 
-          DATABASE_URL: postgres://fider:fider@postgres:5432/fider?sslmode=disable
-          JWT_SECRET: tXQhvSMWMS11qZ9euEhE6lf2ferf0FR6RYGd8iMXiTxxXtJ1XDVdTXPaLtV12ZGp
-          EMAIL_NOREPLY: noreply@yourdomain.com
-          EMAIL_SMTP_HOST: smtp.gmail.com
-          EMAIL_SMTP_PORT: 587
-          EMAIL_SMTP_USERNAME: benamorelyes0@gmail.com
-          EMAIL_SMTP_PASSWORD: Azertyuiop123456789.
+          - name: EMAIL_NOREPLY
+            value: noreply@yourdomain.com
+          - name: EMAIL_SMTP_HOST
+            value: smtp.gmail.com
+          - name: EMAIL_SMTP_PORT
+            value: 587
+          - name: EMAIL_SMTP_USERNAME
+            value: benamorelyes0@gmail.com
+          - name: EMAIL_SMTP_PASSWORD
+            value: Azertyuiop123456789.
           #EMAIL_SMTP_SSL: enable
           # GitHub
-          OAUTH_GITHUB_CLIENTID: 8bf25d5a40548ac247a8
-          OAUTH_GITHUB_SECRET: 853a873ea6902c26369e1187c142fbacb03a46d5
+          - name: OAUTH_GITHUB_CLIENTID
+            value: 8bf25d5a40548ac247a8
+          - name: OAUTH_GITHUB_SECRET
+            value: 853a873ea6902c26369e1187c142fbacb03a46d5
         ports:
         - containerPort: 3000
-          
+          targetPort: 80
+          nodePort: 9999
