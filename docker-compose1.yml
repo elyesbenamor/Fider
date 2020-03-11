@@ -1,0 +1,63 @@
+version: '2'
+services:
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+    - "6379:6379"
+    volumes:
+    - pgdb:/var/lib/redis
+    restart: always
+    
+  #memcached:
+   # container_name: memcached
+    #build:
+     # context: .
+      #dockerfile: Dockerfile-memcached
+    #ports:
+     # - "11211:11211"
+     #volumes:
+    #- pgdb:/var/lib/memcached/data
+    #- pgdb:/usr/bin/memcached
+      
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile-postgres
+    container_name: postgres
+    environment:
+      POSTGRES_USER: fider
+      POSTGRES_PASSWORD: fider
+      POSTGRES_DB: fider
+    volumes:
+     - pgdb:/var/lib/postgres/data
+     - pgdb:/etc/postgresql
+     - pgdb:/var/log/postgresql
+     - pgdb:/var/lib/postgresql
+  
+  fider:
+    restart: always
+    image: getfider/fider:stable
+    ports:
+      - "9999:3000"
+    links:
+     - redis
+     - postgres
+    depends_on:
+     - redis
+     - postgres
+    environment: 
+      DATABASE_URL: postgres://fider:fider@postgres:5432/fider?sslmode=disable
+      JWT_SECRET: tXQhvSMWMS11qZ9euEhE6lf2ferf0FR6RYGd8iMXiTxxXtJ1XDVdTXPaLtV12ZGp
+      EMAIL_NOREPLY: noreply@yourdomain.com
+      EMAIL_SMTP_HOST: smtp.gmail.com
+      EMAIL_SMTP_PORT: 587
+      EMAIL_SMTP_USERNAME: benamorelyes0@gmail.com
+      EMAIL_SMTP_PASSWORD: Azertyuiop123456789.
+      #EMAIL_SMTP_SSL: enable
+      # GitHub
+      OAUTH_GITHUB_CLIENTID: 8bf25d5a40548ac247a8
+      OAUTH_GITHUB_SECRET: 853a873ea6902c26369e1187c142fbacb03a46d5
+
+volumes:
+  pgdb:
