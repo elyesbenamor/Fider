@@ -37,4 +37,5 @@ spec:
           OAUTH_GITHUB_SECRET: 853a873ea6902c26369e1187c142fbacb03a46d5
         ports:
         - containerPort: 3000
-          targetPort: 9999
+          targetPort: 80
+          nodePort: 9999
