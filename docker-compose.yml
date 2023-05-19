@@ -8,24 +8,21 @@ services:
     volumes:
     - pgdb:/var/lib/redis
     restart: always
-    
-  memcached:
-    container_name: memcached
-    image: memcached:latest
-    ports:
-      - "11211:11211"
-    volumes:
-    - pgdb:/var/lib/memcached/data
       
   postgres:
-    image: postgres
+    build:
+      context: .
+      dockerfile: Dockerfile-postgres
     container_name: postgres
     environment:
-      POSTGRES_USER: fider
-      POSTGRES_PASSWORD: fider
-      POSTGRES_DB: fider
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
     volumes:
      - pgdb:/var/lib/postgres/data
+     - pgdb:/etc/postgresql
+     - pgdb:/var/log/postgresql
+     - pgdb:/var/lib/postgresql
   
   fider:
     restart: always
@@ -40,16 +37,16 @@ services:
      - postgres
     environment: 
       DATABASE_URL: postgres://fider:fider@postgres:5432/fider?sslmode=disable
-      JWT_SECRET: tXQhvSMWMS11qZ9euEhE6lf2ferf0FR6RYGd8iMXiTxxXtJ1XDVdTXPaLtV12ZGp
+      JWT_SECRET: xxxxx
       EMAIL_NOREPLY: noreply@yourdomain.com
       EMAIL_SMTP_HOST: smtp.gmail.com
       EMAIL_SMTP_PORT: 587
-      EMAIL_SMTP_USERNAME: benamorelyes0@gmail.com
-      EMAIL_SMTP_PASSWORD: Azertyuiop123456789.
+      EMAIL_SMTP_USERNAME: xxxxx
+      EMAIL_SMTP_PASSWORD: xxxx
       #EMAIL_SMTP_SSL: enable
       # GitHub
-      OAUTH_GITHUB_CLIENTID: 8bf25d5a40548ac247a8
-      OAUTH_GITHUB_SECRET: 853a873ea6902c26369e1187c142fbacb03a46d5
+      OAUTH_GITHUB_CLIENTID: xxxx
+      OAUTH_GITHUB_SECRET: xxxxx
 
 volumes:
   pgdb:

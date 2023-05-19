@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name : fider
+  labels:
+    app: fider
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: fider
+    spec:
+      containers:
+      - env:
+        - name: DATABASE_URL
+          value: postgres://fider:fider@postgres:5432/fider?sslmode=disable
+        - name: EMAIL_NOREPLY
+          value: noreply@yourdomain.com
+        - name: EMAIL_SMTP_HOST
+          value: smtp.gmail.com
+        - name: EMAIL_SMTP_PASSWORD
+          value: ""
+        - name: EMAIL_SMTP_PORT
+          value: "587"
+        - name: EMAIL_SMTP_USERNAME
+          value: ""
+        - name: JWT_SECRET
+          value: ""
+        - name: OAUTH_GITHUB_CLIENTID
+          value: ""
+        - name: OAUTH_GITHUB_SECRET
+          value: ""
+        image: getfider/fider:stable
+        name: fider
+        ports:
+        - containerPort: 3000
+        resources: {}
+      restartPolicy: Always
+status: {}

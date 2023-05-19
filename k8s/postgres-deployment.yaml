@@ -1,0 +1,50 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: postgres
+  name: postgres
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_DB
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: postgres
+        - name: POSTGRES_USER
+          value: postgres
+        image: postgres
+        name: postgres
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/postgres/data
+          name: pgdb
+        - mountPath: /etc/postgresql
+          name: pgdb
+        - mountPath: /var/log/postgresql
+          name: pgdb
+        - mountPath: /var/lib/postgresql
+          name: pgdb
+      restartPolicy: Always
+      volumes:
+      - name: pgdb
+        persistentVolumeClaim:
+          claimName: pgdb
+      - name: pgdb
+        persistentVolumeClaim:
+          claimName: pgdb
+      - name: pgdb
+        persistentVolumeClaim:
+          claimName: pgdb
+      - name: pgdb
+        persistentVolumeClaim:
+          claimName: pgdb
+status: {}
